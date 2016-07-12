@@ -11,9 +11,7 @@ class SimpleGame
 		// 'content' - the name of the container to add our game to
 		// { preload:this.preload, create:this.create} - functions to call for our states
 		this.game = new Phaser.Game( 800, 600, Phaser.AUTO, 'content', { preload:this.preload, create:this.create, update:this.update} );
-		this.game.state.add('GameStage', GameStage);	
-		this.game.state.add('GameLose', GameLose);
-		this.game.state.add('GameWin', GameWin);
+
     }   
 	
 	preload()
@@ -21,8 +19,11 @@ class SimpleGame
 		// add our logo image to the assets class under the
 		// key 'logo'. We're also setting the background colour
 		// so it's the same as the background colour in the image
-		this.game.load.image( 'logo', "assets/ds_logo.png" );
-		this.game.stage.backgroundColor = 0xB20059;
+		//this.game.load.image( 'logo', "assets/ds_logo.png" );
+		//this.game.stage.backgroundColor = 0xB20059;
+		this.game.state.add('GameStage', GameStage, false);	
+		this.game.state.add('GameLose', GameLose, false);
+		this.game.state.add('GameWin', GameWin, false);
 	}
 	
 	create()
@@ -31,12 +32,15 @@ class SimpleGame
 		// center of the screen, and set the anchor to the center of
 		// the image so it's centered properly. There's a lot of
 		// centering in that last sentence
-		var logo = this.game.add.sprite( this.game.world.centerX - 100, this.game.world.centerY, 'logo' );
-		logo.anchor.setTo( 0.5, 0.5 );
+		//var logo = this.game.add.sprite( this.game.world.centerX - 100, this.game.world.centerY, 'logo' );
+		//logo.anchor.setTo( 0.5, 0.5 );
+		
+
+		this.game.state.start('GameStage');
 	}
 	update()
 	{
-		this.game.state.start('GameStage');
+		
 	}
 }
 

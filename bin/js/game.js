@@ -7,27 +7,27 @@ var SimpleGame = (function () {
         // 'content' - the name of the container to add our game to
         // { preload:this.preload, create:this.create} - functions to call for our states
         this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', { preload: this.preload, create: this.create, update: this.update });
-        this.game.state.add('GameStage', GameStage);
-        this.game.state.add('GameLose', GameLose);
-        this.game.state.add('GameWin', GameWin);
     }
     SimpleGame.prototype.preload = function () {
         // add our logo image to the assets class under the
         // key 'logo'. We're also setting the background colour
         // so it's the same as the background colour in the image
-        this.game.load.image('logo', "assets/ds_logo.png");
-        this.game.stage.backgroundColor = 0xB20059;
+        //this.game.load.image( 'logo', "assets/ds_logo.png" );
+        //this.game.stage.backgroundColor = 0xB20059;
+        this.game.state.add('GameStage', GameStage, false);
+        this.game.state.add('GameLose', GameLose, false);
+        this.game.state.add('GameWin', GameWin, false);
     };
     SimpleGame.prototype.create = function () {
         // add the 'logo' sprite to the game, position it in the
         // center of the screen, and set the anchor to the center of
         // the image so it's centered properly. There's a lot of
         // centering in that last sentence
-        var logo = this.game.add.sprite(this.game.world.centerX - 100, this.game.world.centerY, 'logo');
-        logo.anchor.setTo(0.5, 0.5);
+        //var logo = this.game.add.sprite( this.game.world.centerX - 100, this.game.world.centerY, 'logo' );
+        //logo.anchor.setTo( 0.5, 0.5 );
+        this.game.state.start('GameStage');
     };
     SimpleGame.prototype.update = function () {
-        this.game.state.start('GameStage');
     };
     return SimpleGame;
 }());
@@ -35,6 +35,13 @@ var SimpleGame = (function () {
 window.onload = function () {
     var game = new SimpleGame();
 };
+var PlayerObject = (function () {
+    function PlayerObject() {
+        this.hp = 1;
+        this.Sprite = 'Ship';
+    }
+    return PlayerObject;
+}());
 var GameLose = (function () {
     function GameLose() {
         // create our phaser game
@@ -43,7 +50,6 @@ var GameLose = (function () {
         // Phaser.AUTO - determine the renderer automatically (canvas, webgl)
         // 'content' - the name of the container to add our game to
         // { preload:this.preload, create:this.create} - functions to call for our states
-        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', { preload: this.preload, create: this.create });
     }
     GameLose.prototype.preload = function () {
     };
@@ -59,14 +65,13 @@ var GameStage = (function () {
         // Phaser.AUTO - determine the renderer automatically (canvas, webgl)
         // 'content' - the name of the container to add our game to
         // { preload:this.preload, create:this.create} - functions to call for our states
-        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', { preload: this.preload, create: this.create });
     }
     GameStage.prototype.preload = function () {
     };
     GameStage.prototype.create = function () {
         this.text = "- phaser -\n with a sprinkle of \n pixi dust.";
         this.style = { font: "65px Arial", fill: "#ff0044", align: "center" };
-        this.game.add.text(this.game.world.centerX - 300, 0, this.text, this.style);
+        this.game.add.text(this.game.world.centerX, 0, this.text, this.style);
     };
     return GameStage;
 }());
@@ -78,7 +83,6 @@ var GameWin = (function () {
         // Phaser.AUTO - determine the renderer automatically (canvas, webgl)
         // 'content' - the name of the container to add our game to
         // { preload:this.preload, create:this.create} - functions to call for our states
-        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', { preload: this.preload, create: this.create });
     }
     GameWin.prototype.preload = function () {
     };
