@@ -1,7 +1,15 @@
 {
-	"compilerOptions": {
-		"target": "ES5",
-		"module": "amd",
-		"sourceMap": true
-	}
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "types": [
+      "node"
+    ]
+  },
+  "files": [
+    "./src/globals.d.ts",
+    "./src/app.ts",
+    "./node_modules/phaser-ce/typescript/phaser.comments.d.ts"
+  ]
 }
