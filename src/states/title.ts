@@ -44,7 +44,7 @@ export default class Title extends Phaser.State {
 
         this.mummySpritesheet = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 175, Assets.Spritesheets.SpritesheetsMetalslugMummy.getName());
         this.mummySpritesheet.animations.add('walk');
-        this.mummySpritesheet.animations.play('walk', 30, true);
+        this.mummySpritesheet.animations.play('walk', 10, true);
 
         this.sfxAudiosprite = this.game.add.audioSprite(Assets.Audiosprites.AudiospritesSfx.getName());
 
@@ -62,13 +62,23 @@ export default class Title extends Phaser.State {
             availableSFX.Laser9
         ];
 
-        this.game.sound.play(Assets.Audio.AudioMusic.getName(), 0.2, true);
+        //this.game.sound.play(Assets.Audio.AudioMusic.getName(), 0.2, true);
 
         this.backgroundTemplateSprite.inputEnabled = true;
         this.backgroundTemplateSprite.events.onInputDown.add(() => {
-            this.sfxAudiosprite.play(Phaser.ArrayUtils.getRandomItem(this.sfxLaserSounds));
+            //this.sfxAudiosprite.play(Phaser.ArrayUtils.getRandomItem(this.sfxLaserSounds));
+            this.startGame();
         });
 
         this.game.camera.flash(0x000000, 1000);
+    }
+
+    private startGame(): void {
+        this.game.camera.onFadeComplete.addOnce(this.loadTitle, this);
+        this.game.camera.fade(0x000000, 1000);
+    }
+
+    private loadTitle(): void {
+        this.game.state.start('stage');
     }
 }

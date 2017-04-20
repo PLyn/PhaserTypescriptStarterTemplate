@@ -117,3 +117,4 @@ export class StringUtils {
         return (camelCase[0].toUpperCase() + camelCase.substr(1));
     }
 }
+
